@@ -5,13 +5,13 @@ import re
 
 issues = re.compile(r'Batch \d* Issues')
 batch_file = re.compile(r'Batch \d*?')
-batch_number = re.compile(r'\d*')
+batch_number = re.compile(r'\d+')
 
 file = 'C:\\users\\robert.anderson\\Downloads\\Batches\\Batch 277 Funding  Request Details.xlsx'
 
-issues_wb = xl.load_workbook(path.join(path.split(file)[0], 'issues.xlsx'))
+issues_wb = xl.load_workbook(path.join(path.split(file)[0], 'Issues Iterated.xlsx'))
 issues_page = issues_wb.active
-print(issues_wb.sheetnames)
+issues_page.delete_rows(2, issues_page.max_row)
 
 for folder_name, sub_folders, file_names in walk(path.split(file)[0]):
     print('The current folder is ' + folder_name)
@@ -31,8 +31,13 @@ for folder_name, sub_folders, file_names in walk(path.split(file)[0]):
                     ld_issues = wb[wb.sheetnames[i]]
                     for row in ld_issues.iter_rows(min_row=2, max_row=ld_issues.max_row, max_col=ld_issues.max_column,
                                                    values_only=True):
-                        issues_page.append(row)
-                    print('Copy complete')
+                        new_row = []
+                        this_batch = batch_number.search(wb.sheetnames[i])
+                        for value in row:
+                            new_row.append(value)
+                        new_row.append(this_batch.group())
+                        issues_page.append(new_row)
+                    print('Copy complete.')
 
 for row in issues_page.values:
     print(row)
