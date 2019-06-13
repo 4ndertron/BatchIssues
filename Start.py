@@ -7,15 +7,7 @@ issues = re.compile(r'Batch \d* Issues')
 batch_file = re.compile(r'Batch \d*?')
 batch_number = re.compile(r'\d*')
 
-# VESA Mountable
-
 file = 'C:\\users\\robert.anderson\\Downloads\\Batches\\Batch 277 Funding  Request Details.xlsx'
-
-# wb = xl.load_workbook(file)
-# for i in range(len(wb.get_sheet_names())):
-#     if issues.search(wb.get_sheet_names()[i]):
-#         print('The issues page is found on index ' + str(i) + ' of the workbook' + path.split(file)[1])
-#         print('The name of the sheet is ' + wb.get_sheet_names()[i])
 
 issues_wb = xl.load_workbook(path.join(path.split(file)[0], 'issues.xlsx'))
 issues_page = issues_wb.active
