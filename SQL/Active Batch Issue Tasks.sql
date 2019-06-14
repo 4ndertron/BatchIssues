@@ -1,0 +1,17 @@
+WITH TASKS AS (
+    SELECT SUBJECT
+         , CREATED_BY
+         , TO_DATE(CREATED_DATE) AS CREATED_DATE
+         , STATUS
+         , PROJECT_ID
+         , RECORD_TYPE
+         , TYPE
+    FROM RPT.T_TASK AS T
+    WHERE (T.SUBJECT ILIKE '%UCC%'
+        OR T.SUBJECT ILIKE '%PUC%')
+      AND STATUS != 'Completed'
+    AND CREATED_DATE >= DATE_TRUNC('Y',CURRENT_DATE)
+)
+
+SELECT *
+FROM TASKS

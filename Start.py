@@ -3,6 +3,8 @@ from os import path
 from os import walk
 import re
 
+# TODO: Setup a webdriver to download the new batch files from ShareFile.
+
 issues = re.compile(r'Batch \d* Issues')
 batch_file = re.compile(r'Batch \d*?')
 batch_number = re.compile(r'\d+')
